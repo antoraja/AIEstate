@@ -1,0 +1,105 @@
+country: CH
+name: Switzerland
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: ch-baseline-business-premises
+    title: Business premises do not need a permit
+    summary: Property used for a business (offices, shops, workshops) can be bought by anyone without a Lex Koller permit.
+    applies_to: {}
+    property_types: [commercial]
+    verdict: ELIGIBLE
+    sources: &ch-sources
+      - title: One Place — foreigner property ownership rules in Europe 2026
+        url: https://one-place.com/news/foreigner-property-ownership-rules-europe-2026
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: ch-eu-efta-residents
+    title: EU/EFTA citizens living in Switzerland
+    summary: EU and EFTA citizens who live in Switzerland can buy like Swiss citizens.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident]
+      citizenship_any: ['@EU', '@EFTA']
+    property_types: [house, apartment, new_build, residential_land]
+    verdict: ELIGIBLE
+    sources: *ch-sources
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: ch-c-permit
+    title: Settlement permit (C) holders
+    summary: Holders of a C settlement permit can buy without a Lex Koller permit.
+    applies_to:
+      status_in: [permanent_resident]
+    property_types: [house, apartment, new_build, residential_land]
+    verdict: ELIGIBLE
+    sources: *ch-sources
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: ch-non-eu-b-permit
+    title: Non-EU residents with a B permit — main residence only
+    summary: Non-EU/EFTA citizens living in Switzerland on a B permit can buy one home to live in.
+    applies_to:
+      status_in: [temporary_resident]
+      citizenship_none: ['@EU', '@EFTA']
+    property_types: [house, apartment, new_build]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: other
+        text: Only as your own main residence, while you live in Switzerland.
+    sources: []
+    source_type: general_knowledge
+
+  - id: ch-persons-abroad-holiday-home
+    title: Lex Koller — persons abroad need a permit for a holiday home
+    summary: >-
+      People living outside Switzerland need a cantonal permit to buy a holiday home, subject to
+      annual cantonal quotas and size limits.
+    applies_to:
+      status_in: [non_resident]
+    property_types: [house, apartment, new_build]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: approval
+        text: Cantonal Lex Koller permit, only in areas the canton opens to foreign holiday-home buyers.
+      - kind: quota
+        text: Annual cantonal quota of permits; size limits on the property.
+    sources: *ch-sources
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: The Federal Council said in 2025 that it intends to tighten Lex Koller.
+
+  - id: ch-persons-abroad-land
+    title: Lex Koller — no buying land as an investment from abroad
+    summary: People living outside Switzerland cannot buy residential land as an investment.
+    applies_to:
+      status_in: [non_resident]
+    property_types: [residential_land]
+    verdict: NOT_ELIGIBLE
+    sources: []
+    source_type: general_knowledge
+
+  - id: ch-agricultural-self-cultivation
+    title: Farmland — self-cultivators only
+    summary: Under the Federal Act on Rural Land, farmland can generally only be bought by people who farm it themselves.
+    applies_to: {}
+    property_types: [agricultural_land]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: approval
+        text: Cantonal approval; you must farm the land yourself.
+    sources: []
+    source_type: general_knowledge
+
+  - id: ch-agricultural-persons-abroad
+    title: Farmland — not for persons abroad
+    summary: People living outside Switzerland cannot buy farmland.
+    applies_to:
+      status_in: [non_resident]
+    property_types: [agricultural_land]
+    verdict: NOT_ELIGIBLE
+    sources: []
+    source_type: general_knowledge

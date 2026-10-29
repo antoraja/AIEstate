@@ -1,0 +1,45 @@
+country: TH
+name: Thailand
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: th-condo-quota
+    title: Condominiums — 49% foreign quota
+    summary: >-
+      Foreigners can own condominium units freehold, as long as total foreign ownership in the
+      building stays within 49% of its saleable floor area.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [apartment]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: quota
+        text: The building's foreign quota (49% of saleable area) must not be full.
+      - kind: other
+        text: Purchase money must be brought into Thailand in foreign currency (with a Foreign Exchange Transaction form).
+    sources: &th-sources
+      - title: terms.law — Thailand's 49% condo rule
+        url: https://terms.law/Thai/property/condo-foreign-quota.html
+      - title: Oxford Business Group — foreign ownership rules for land and condominiums
+        url: https://oxfordbusinessgroup.com/reports/thailand/2014-report/economy/home-from-home-foreign-ownership-rules-for-land-and-condominiums
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: Reports of reform to the quota in 2026 were not confirmed in our research.
+
+  - id: th-land-leasehold
+    title: Land — leasehold only
+    summary: >-
+      Foreigners cannot own land in Thailand. They can lease land (typically 30 years,
+      renewable) and own the building on it.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [house, new_build, residential_land, agricultural_land, commercial]
+    verdict: ALTERNATIVE_STRUCTURE
+    conditions:
+      - kind: structure
+        text: Registered land lease of up to 30 years; you may own the house itself.
+    sources: *th-sources
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: Using Thai nominee shareholders to hold land is illegal.

@@ -1,0 +1,44 @@
+country: GB
+name: United Kingdom
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: gb-baseline
+    title: No nationality restrictions
+    summary: Anyone can buy property in the UK regardless of nationality or residence.
+    applies_to: {}
+    property_types: all
+    verdict: ELIGIBLE
+    sources: &gb-sources
+      - title: IMI Daily — where foreigners can and cannot buy property
+        url: https://www.imidaily.com/analysis/where-foreigners-can-and-cannot-buy-property-market-by-market/
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: gb-nonresident-surcharge
+    title: Non-resident stamp duty surcharge
+    summary: Non-UK residents pay an extra 2% Stamp Duty Land Tax on residential purchases in England and Northern Ireland.
+    applies_to:
+      status_in: [non_resident]
+    property_types: [house, apartment, new_build]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: surcharge
+        text: 2% non-resident SDLT surcharge (England and Northern Ireland; Scotland and Wales have their own taxes).
+    sources: []
+    source_type: general_knowledge
+
+  - id: gb-overseas-entities
+    title: Register of Overseas Entities
+    summary: Overseas companies and trusts must register their beneficial owners with Companies House before buying UK land.
+    applies_to:
+      status_in: [non_resident]
+      buyer_types: [company, trust]
+    property_types: all
+    verdict: CONDITIONAL
+    conditions:
+      - kind: registration
+        text: Register on the Register of Overseas Entities and obtain an overseas entity ID.
+    sources: []
+    source_type: general_knowledge

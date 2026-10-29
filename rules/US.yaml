@@ -1,0 +1,206 @@
+country: US
+name: United States
+zones:
+  - id: fl
+    label: Florida
+  - id: tx
+    label: Texas
+  - id: other
+    label: Other states (not yet modelled individually)
+    description: >-
+      28 states had foreign-ownership laws by 2026. Until each is modelled, buyers from commonly
+      named "foreign adversary" countries see UNKNOWN for these states.
+rules:
+  - id: us-federal-baseline
+    title: No federal ban on foreign buyers
+    summary: Foreign nationals can generally buy US real estate. There is no federal nationality-based ban.
+    applies_to: {}
+    property_types: all
+    verdict: ELIGIBLE
+    sources: &us-mintz
+      - title: Mintz — increasing regulation on foreign ownership of US real estate (Jan 2026)
+        url: https://www.mintz.com/insights-center/viewpoints/2896/2026-01-28-increasing-regulation-foreign-ownership-united-states
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: >-
+      CFIUS can review purchases by foreign persons near military installations and other
+      sensitive sites. FIRPTA withholding applies when a foreign owner sells.
+
+  - id: us-afida-reporting
+    title: Foreign owners must report agricultural land (AFIDA)
+    summary: Foreign persons who acquire US agricultural land must report it to the USDA within 90 days.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+    property_types: [agricultural_land]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: registration
+        text: File an AFIDA report with the USDA Farm Service Agency within 90 days.
+    sources:
+      - title: National Agricultural Law Center — foreign ownership laws (July 2026)
+        url: https://nationalaglawcenter.org/wp-content/uploads//assets/Webinars/Foreign%20Ownership%20July%202026.pdf
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: us-other-states-unmodelled
+    title: State foreign-ownership laws not yet modelled
+    summary: >-
+      Many states restrict buyers linked to "foreign adversary" countries, especially for farmland
+      and land near military sites. We have not modelled this state yet.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_any: ['@US_FOREIGN_ADVERSARY']
+    property_types: all
+    zones: [other]
+    verdict: UNKNOWN
+    sources:
+      - title: National Agricultural Law Center — foreign ownership laws (July 2026)
+        url: https://nationalaglawcenter.org/wp-content/uploads//assets/Webinars/Foreign%20Ownership%20July%202026.pdf
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  # Florida SB 264 targets people *domiciled* in a country of concern. We approximate domicile with
+  # citizenship plus not being a US citizen or permanent resident; the explanation says so.
+  - id: us-fl-china-nonresident
+    title: Florida SB 264 — persons domiciled in China
+    summary: >-
+      People domiciled in China who are not US citizens or permanent residents cannot acquire
+      any interest in Florida real property.
+    applies_to:
+      status_in: [non_resident]
+      citizenship_any: [CN]
+    property_types: all
+    zones: [fl]
+    verdict: NOT_ELIGIBLE
+    effective_from: 2023-07-01
+    sources: &us-fl
+      - title: Carlton Fields — new Florida law banning real estate ownership
+        url: https://www.carltonfields.com/insights/publications/2023/new-florida-law-banning-real-estate-ownership
+      - title: Gibson Dunn — rise of state laws restricting foreign entities
+        url: https://www.gibsondunn.com/rise-of-state-laws-restricting-foreign-entities-from-acquiring-property-another-front-in-us-china-tensions/
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: The law is being challenged in court (Shen v. Simpson). The law turns on domicile, not citizenship.
+
+  - id: us-fl-china-visa-holder-residence
+    title: Florida SB 264 — one home for lawful visa holders
+    summary: >-
+      A person domiciled in China who is lawfully in the US on a non-tourist visa may buy one
+      residential property of up to 2 acres.
+    applies_to:
+      status_in: [temporary_resident]
+      citizenship_any: [CN]
+    property_types: [house, apartment, new_build, residential_land]
+    zones: [fl]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: quota
+        text: One residential property, up to 2 acres.
+      - kind: location
+        text: Not within 5 miles of a military installation.
+      - kind: registration
+        text: Buyer signs an affidavit at closing and registers the purchase with the state.
+    effective_from: 2023-07-01
+    sources: *us-fl
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: us-fl-china-visa-holder-other
+    title: Florida SB 264 — other property for persons domiciled in China
+    summary: Apart from one home, persons domiciled in China cannot acquire Florida real property.
+    applies_to:
+      status_in: [temporary_resident]
+      citizenship_any: [CN]
+    property_types: [agricultural_land, commercial]
+    zones: [fl]
+    verdict: NOT_ELIGIBLE
+    effective_from: 2023-07-01
+    sources: *us-fl
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: us-fl-concern-agricultural
+    title: Florida SB 264 — farmland and other countries of concern
+    summary: >-
+      People domiciled in Cuba, Iran, North Korea, Russia, Syria or Venezuela cannot acquire
+      agricultural land in Florida.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_any: ['@US_FL_CONCERN_EXCEPT_CN']
+    property_types: [agricultural_land]
+    zones: [fl]
+    verdict: NOT_ELIGIBLE
+    effective_from: 2023-07-01
+    sources: *us-fl
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: us-fl-concern-other
+    title: Florida SB 264 — location limits for other countries of concern
+    summary: >-
+      People domiciled in other countries of concern can buy non-agricultural property, but not
+      near military installations or critical infrastructure.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_any: ['@US_FL_CONCERN_EXCEPT_CN']
+    property_types: [house, apartment, new_build, residential_land, commercial]
+    zones: [fl]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: location
+        text: Not within 10 miles of a military installation or critical infrastructure facility.
+      - kind: registration
+        text: Buyer signs an affidavit at closing.
+    effective_from: 2023-07-01
+    sources: *us-fl
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: us-tx-designated-nonresident
+    title: Texas SB 17 — designated countries
+    summary: >-
+      Individuals and entities from China, Iran, North Korea and Russia cannot acquire any
+      interest in Texas real property, including leases of one year or more.
+    applies_to:
+      status_in: [non_resident]
+      citizenship_any: ['@US_TX_DESIGNATED']
+    property_types: all
+    zones: [tx]
+    verdict: NOT_ELIGIBLE
+    effective_from: 2025-09-01
+    sources: &us-tx
+      - title: Morgan Lewis — Texas joins states limiting foreign control of real property
+        url: https://www.morganlewis.com/pubs/2025/07/us-federal-government-expands-cfius-texas-joins-states-limiting-foreign-control-of-real-property
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: us-tx-designated-homestead
+    title: Texas SB 17 — homestead exception for lawful residents
+    summary: Individuals lawfully present in the US may buy a home to live in (a homestead).
+    applies_to:
+      status_in: [temporary_resident]
+      citizenship_any: ['@US_TX_DESIGNATED']
+    property_types: [house, apartment, new_build, residential_land]
+    zones: [tx]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: other
+        text: Must be your homestead (primary residence).
+    effective_from: 2025-09-01
+    sources: *us-tx
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: us-tx-designated-other
+    title: Texas SB 17 — non-residential property
+    summary: Apart from a homestead, designated-country buyers cannot acquire Texas real property.
+    applies_to:
+      status_in: [temporary_resident]
+      citizenship_any: ['@US_TX_DESIGNATED']
+    property_types: [agricultural_land, commercial]
+    zones: [tx]
+    verdict: NOT_ELIGIBLE
+    effective_from: 2025-09-01
+    sources: *us-tx
+    source_type: secondary
+    last_verified: 2026-10-29

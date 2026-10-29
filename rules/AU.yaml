@@ -1,0 +1,148 @@
+country: AU
+name: Australia
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: au-permanent-residents
+    title: Permanent residents are not foreign persons
+    summary: Australian permanent residents buy on the same footing as citizens.
+    applies_to:
+      status_in: [permanent_resident]
+    property_types: all
+    verdict: ELIGIBLE
+    sources: &au-firb
+      - title: Herbert Smith Freehills Kramer — FIRB update 2025
+        url: https://www.hsfkramer.com/notes/realestate/2025-posts/firb-update
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: au-nz-citizens
+    title: New Zealand citizens are exempt from FIRB residential rules
+    summary: New Zealand citizens do not need foreign investment approval to buy residential property.
+    applies_to:
+      citizenship_any: [NZ]
+    property_types: [house, apartment, new_build, residential_land]
+    verdict: ELIGIBLE
+    sources: []
+    source_type: general_knowledge
+
+  - id: au-established-ban
+    title: Two-year ban on foreigners buying established homes
+    summary: >-
+      From 1 April 2025, foreign persons (temporary residents, non-residents and foreign-owned
+      companies) cannot buy established (existing) dwellings.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_none: [NZ]
+    property_types: [house, apartment]
+    verdict: NOT_ELIGIBLE
+    effective_from: 2025-04-01
+    effective_to: 2027-03-31
+    sources:
+      - title: Herbert Smith Freehills Kramer — FIRB update 2025
+        url: https://www.hsfkramer.com/notes/realestate/2025-posts/firb-update
+      - title: Attwood Marshall — foreign buyer ban on established dwellings
+        url: https://attwoodmarshall.com.au/foreign-buyer-ban-on-established-dwellings
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: >-
+      FIRB approvals issued before 1 April 2025 can still be relied on. The ATO enforces the ban.
+
+  - id: au-established-ban-extension-unclear
+    title: Possible extension of the established-home ban
+    summary: >-
+      Some sources say the ban was extended to 30 June 2029. We could not confirm this from an
+      official source, so this period is shown as unknown.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_none: [NZ]
+    property_types: [house, apartment]
+    verdict: UNKNOWN
+    effective_from: 2027-03-31
+    effective_to: 2029-06-30
+    sources:
+      - title: Your Property Guide — FIRB guide 2026
+        url: https://www.yourpropertyguide.com.au/guides/foreign-buyer-firb-guide
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: au-established-nonresident
+    title: Non-residents cannot buy established homes
+    summary: >-
+      Apart from the temporary ban, foreign non-residents generally cannot buy established
+      dwellings (narrow redevelopment exceptions apply).
+    applies_to:
+      status_in: [non_resident]
+      citizenship_none: [NZ]
+    property_types: [house, apartment]
+    verdict: NOT_ELIGIBLE
+    sources: []
+    source_type: general_knowledge
+
+  - id: au-established-temporary-resident
+    title: Temporary residents — one established home to live in
+    summary: >-
+      When the ban is not in force, temporary residents may buy one established dwelling to live
+      in, with FIRB approval, and must sell it when they leave.
+    applies_to:
+      status_in: [temporary_resident]
+      citizenship_none: [NZ]
+    property_types: [house, apartment]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: approval
+        text: FIRB approval required; must be your residence and be sold when you leave Australia.
+    sources: []
+    source_type: general_knowledge
+
+  - id: au-new-dwellings
+    title: New dwellings and vacant residential land need FIRB approval
+    summary: >-
+      Foreign persons can buy new or off-the-plan dwellings and vacant residential land with
+      FIRB approval. The temporary ban does not cover them.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_none: [NZ]
+    property_types: [new_build, residential_land]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: approval
+        text: FIRB approval and application fee before signing (or a contract conditional on approval).
+      - kind: surcharge
+        text: State foreign-purchaser stamp duty and land-tax surcharges apply.
+      - kind: other
+        text: Vacant residential land must be built on within the time set by the approval (typically 4 years).
+    sources: *au-firb
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: au-agricultural
+    title: Agricultural land — FIRB thresholds and register
+    summary: >-
+      Foreign persons can buy agricultural land, but approval is needed above monetary thresholds
+      and holdings must be recorded on the Register of Foreign Ownership.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+    property_types: [agricultural_land]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: approval
+        text: FIRB approval above the agricultural land threshold (cumulative holdings).
+      - kind: registration
+        text: Register with the ATO's Register of Foreign Ownership of Australian Assets.
+    sources: []
+    source_type: general_knowledge
+
+  - id: au-commercial
+    title: Commercial land — FIRB thresholds
+    summary: Foreign persons can buy commercial property; FIRB approval is needed above value thresholds.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+    property_types: [commercial]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: approval
+        text: FIRB approval above the commercial land threshold (lower for vacant land and sensitive sites).
+    sources: []
+    source_type: general_knowledge

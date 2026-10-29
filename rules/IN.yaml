@@ -1,0 +1,143 @@
+country: IN
+name: India
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: in-citizen-agricultural-state-laws
+    title: State laws on agricultural land
+    summary: >-
+      Indian citizens living in India can buy agricultural land, but some states only allow
+      agriculturists or residents of the state to buy it.
+    applies_to:
+      status_in: [citizen]
+      residing_in_target: true
+    property_types: [agricultural_land]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: other
+        text: Check the state's land-reform and agricultural land ceiling laws.
+    sources: &in-agri
+      - title: NRI Information — state-level relaxations on agricultural land
+        url: https://nriinformation.com/property/agricultural-land-rules-relaxed
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: in-nri-property
+    title: Non-resident Indians (NRIs) can buy non-agricultural property
+    summary: Indian citizens living abroad can buy residential and commercial property in India.
+    applies_to:
+      status_in: [citizen]
+      residing_in_target: false
+    property_types: [house, apartment, new_build, residential_land, commercial]
+    verdict: ELIGIBLE
+    sources: &in-rbi
+      - title: RBI Master Direction — Acquisition and Transfer of Immovable Property under FEMA
+        url: https://rbi.org.in/SCRIPTs/BS_ViewMasDirections.aspx?id=10196
+    source_type: regulator
+    last_verified: 2026-10-29
+
+  - id: in-nri-agricultural
+    title: NRIs cannot buy agricultural land, plantations or farmhouses
+    summary: >-
+      Under FEMA, an NRI cannot buy agricultural land, plantation property or a farmhouse. Land
+      inherited or held from before becoming non-resident can be kept.
+    applies_to:
+      status_in: [citizen]
+      residing_in_target: false
+    property_types: [agricultural_land]
+    verdict: NOT_ELIGIBLE
+    sources: *in-rbi
+    source_type: regulator
+    last_verified: 2026-10-29
+    notes: Moving back to India (resident under FEMA) removes this bar.
+
+  - id: in-oci-property
+    title: OCI cardholders can buy non-agricultural property
+    summary: OCI cardholders can buy residential and commercial property in India, like NRIs.
+    applies_to:
+      special_any: [IN_OCI]
+      citizenship_none: [IN]
+    property_types: [house, apartment, new_build, residential_land, commercial]
+    verdict: ELIGIBLE
+    sources: *in-rbi
+    source_type: regulator
+    last_verified: 2026-10-29
+
+  - id: in-oci-agricultural
+    title: OCI cardholders cannot buy agricultural land, plantations or farmhouses
+    summary: The FEMA exclusion for agricultural land, plantations and farmhouses also applies to OCI cardholders.
+    applies_to:
+      special_any: [IN_OCI]
+      citizenship_none: [IN]
+    property_types: [agricultural_land]
+    verdict: NOT_ELIGIBLE
+    sources: *in-rbi
+    source_type: regulator
+    last_verified: 2026-10-29
+
+  - id: in-foreign-resident
+    title: Foreign nationals resident in India
+    summary: >-
+      Foreign nationals who are resident in India under FEMA can buy non-agricultural property,
+      typically for their own use while they live there.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident]
+      citizenship_none: [IN, '@IN_RBI_APPROVAL_NATIONALITIES']
+      special_none: [IN_OCI]
+    property_types: [house, apartment, new_build, residential_land, commercial]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: other
+        text: You must be resident in India under FEMA (in India for more than 182 days in the previous financial year, with intent to stay).
+    sources: *in-rbi
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: in-foreign-resident-rbi-approval
+    title: Some nationalities need RBI approval
+    summary: >-
+      Residents of India who are citizens of Pakistan, Bangladesh, Sri Lanka, Afghanistan, China,
+      Iran, Nepal, Bhutan, Macau or Hong Kong need prior RBI approval to buy property.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident]
+      citizenship_any: ['@IN_RBI_APPROVAL_NATIONALITIES']
+      citizenship_none: [IN]
+      special_none: [IN_OCI]
+    property_types: [house, apartment, new_build, residential_land, commercial]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: approval
+        text: Prior approval from the Reserve Bank of India.
+    sources: *in-rbi
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: The nationality list should be re-checked against the current FEMA regulations.
+
+  - id: in-foreign-agricultural
+    title: Foreign nationals cannot buy agricultural land
+    summary: Foreign nationals cannot buy agricultural land, plantations or farmhouses in India.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+      citizenship_none: [IN]
+    property_types: [agricultural_land]
+    verdict: NOT_ELIGIBLE
+    sources: *in-rbi
+    source_type: regulator
+    last_verified: 2026-10-29
+
+  - id: in-foreign-nonresident
+    title: Foreign nationals living abroad cannot buy property
+    summary: >-
+      A foreign national who is not resident in India and is not an OCI cardholder cannot buy
+      immovable property (leases of up to 5 years are allowed).
+    applies_to:
+      status_in: [non_resident]
+      citizenship_none: [IN]
+      special_none: [IN_OCI]
+    property_types: all
+    verdict: NOT_ELIGIBLE
+    sources: *in-rbi
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: Businesses can acquire property through an Indian company set up under the FDI rules.

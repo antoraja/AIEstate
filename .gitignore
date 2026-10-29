@@ -1,0 +1,8 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+.env
+.env.local
+# Generated from rules/*.yaml by `npm run rules:build`
+packages/rules-engine/generated/

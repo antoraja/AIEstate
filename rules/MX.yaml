@@ -1,0 +1,63 @@
+country: MX
+name: Mexico
+zones:
+  - id: restricted
+    label: Restricted zone (within 100 km of a border or 50 km of a coast)
+    description: Includes most beach areas, e.g. Cancún, Tulum, Los Cabos, Puerto Vallarta.
+  - id: interior
+    label: Interior (e.g. Mexico City, Guadalajara, San Miguel de Allende)
+rules:
+  - id: mx-baseline
+    title: Foreigners can buy directly in the interior
+    summary: Outside the restricted zone, foreigners can hold property directly in their own name.
+    applies_to: {}
+    property_types: all
+    verdict: ELIGIBLE
+    sources: &mx-imi
+      - title: IMI Daily — where foreigners can and cannot buy property
+        url: https://www.imidaily.com/analysis/where-foreigners-can-and-cannot-buy-property-market-by-market/
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: Foreign buyers agree with the Ministry of Foreign Affairs (SRE) not to seek their own government's protection over the property (the Calvo clause).
+
+  - id: mx-restricted-zone-fideicomiso
+    title: Restricted zone — bank trust (fideicomiso) required
+    summary: >-
+      Foreigners cannot hold residential property in the restricted zone directly; they hold it
+      through a bank trust (fideicomiso) and keep full use and resale rights.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [house, apartment, new_build, residential_land]
+    zones: [restricted]
+    verdict: ALTERNATIVE_STRUCTURE
+    conditions:
+      - kind: structure
+        text: Bank trust (fideicomiso) with a Mexican bank; renewable terms of up to 50 years.
+    sources: []
+    source_type: general_knowledge
+
+  - id: mx-restricted-zone-commercial
+    title: Restricted zone — commercial property through a Mexican company
+    summary: Foreigners can hold commercial property in the restricted zone through a Mexican company.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [commercial]
+    zones: [restricted]
+    verdict: ALTERNATIVE_STRUCTURE
+    conditions:
+      - kind: structure
+        text: Mexican corporation registered with the Ministry of Foreign Affairs.
+    sources: []
+    source_type: general_knowledge
+
+  - id: mx-ejido-land
+    title: Ejido (communal) land
+    summary: Much rural land is ejido (communal) land, which cannot be bought until converted to private title.
+    applies_to: {}
+    property_types: [agricultural_land]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: other
+        text: Confirm the land has full private title (dominio pleno) in the Public Registry before buying.
+    sources: []
+    source_type: general_knowledge

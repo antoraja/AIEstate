@@ -1,0 +1,20 @@
+name: Stale rules report
+
+# Weekly reminder of rules that were never verified, were verified more than 90 days ago,
+# or start/expire within 60 days. A red run means "someone should re-check these", not a bug.
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run rules:stale

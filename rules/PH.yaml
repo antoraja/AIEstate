@@ -1,0 +1,66 @@
+country: PH
+name: Philippines
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: ph-condo-cap
+    title: Condominiums — 40% foreign cap
+    summary: Foreigners can own condominium units as long as foreign ownership in the project stays within 40%.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [apartment]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: quota
+        text: Foreign ownership in the condominium corporation must stay within 40%.
+    sources: []
+    source_type: general_knowledge
+
+  - id: ph-land-constitutional-bar
+    title: Land — foreigners cannot own it
+    summary: >-
+      The Constitution reserves land ownership to Filipino citizens and Filipino-majority
+      companies. Foreigners can lease land long-term and own the building on it.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+      special_none: [PH_FORMER_NATURAL_BORN]
+    property_types: [house, new_build, residential_land, agricultural_land, commercial]
+    verdict: ALTERNATIVE_STRUCTURE
+    conditions:
+      - kind: structure
+        text: Long-term land lease (recent legislation reportedly extended investor leases to up to 99 years — verify).
+    sources:
+      - title: Asia Lifestyle Magazine — mentions recent 99-year leasehold legislation
+        url: https://www.asialifestylemagazine.com/thailand-foreign-ownership-news-update/
+    source_type: general_knowledge
+
+  - id: ph-former-natural-born-residential
+    title: Former natural-born Filipinos — residential land
+    summary: >-
+      Former natural-born Filipino citizens can own limited land for residential use (up to
+      1,000 m² urban or 1 hectare rural).
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+      special_any: [PH_FORMER_NATURAL_BORN]
+    property_types: [house, new_build, residential_land]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: quota
+        text: Up to 1,000 m² of urban land or 1 hectare of rural land.
+    sources: []
+    source_type: general_knowledge
+
+  - id: ph-former-natural-born-other
+    title: Former natural-born Filipinos — other land
+    summary: Beyond the residential allowance, the general bar on foreign land ownership applies.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+      special_any: [PH_FORMER_NATURAL_BORN]
+    property_types: [agricultural_land, commercial]
+    verdict: ALTERNATIVE_STRUCTURE
+    conditions:
+      - kind: structure
+        text: Long-term land lease.
+    sources: []
+    source_type: general_knowledge

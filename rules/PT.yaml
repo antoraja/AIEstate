@@ -1,0 +1,18 @@
+country: PT
+name: Portugal
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: pt-baseline
+    title: No restrictions on foreign buyers
+    summary: EU and non-EU buyers can buy apartments, houses and commercial property without special permits.
+    applies_to: {}
+    property_types: all
+    verdict: ELIGIBLE
+    sources:
+      - title: One Place — foreigner property ownership rules in Europe 2026
+        url: https://one-place.com/news/foreigner-property-ownership-rules-europe-2026
+    source_type: secondary
+    last_verified: 2026-10-29
+    notes: A Portuguese tax number (NIF) is needed to buy.

@@ -1,0 +1,123 @@
+country: NZ
+name: New Zealand
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: nz-resident-class-visa
+    title: Residence-class visa holders living in New Zealand
+    summary: >-
+      Holders of a residence-class visa who are ordinarily resident in New Zealand are not
+      "overseas persons" and can buy like citizens.
+    applies_to:
+      status_in: [permanent_resident]
+    property_types: all
+    verdict: ELIGIBLE
+    sources: &nz-oneroof
+      - title: OneRoof — when can foreigners buy real estate in New Zealand
+        url: https://www.oneroof.co.nz/news/explainer-when-will-foreigners-be-able-to-buy-real-estate-in-new-zealand-and-what-happens-next-48772
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: nz-australian-singaporean
+    title: Australian and Singaporean citizens are exempt from the residential ban
+    summary: Citizens of Australia and Singapore can buy residential property like New Zealanders.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_any: [AU, SG]
+    property_types: [house, apartment, new_build, residential_land]
+    verdict: ELIGIBLE
+    sources: *nz-oneroof
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: nz-residential-ban
+    title: Foreign buyer ban on residential land
+    summary: Since 2018, overseas persons cannot buy existing homes or residential land.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_none: [AU, SG]
+      special_none: [NZ_ACTIVE_INVESTOR_PLUS]
+    property_types: [house, apartment, residential_land]
+    verdict: NOT_ELIGIBLE
+    effective_from: 2018-10-22
+    sources: *nz-oneroof
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: nz-residential-ban-investor-visa-before-exemption
+    title: Foreign buyer ban (investor visa holders, before March 2026)
+    summary: Before the investor-visa exemption took effect, investor visa holders were covered by the ban.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_none: [AU, SG]
+      special_any: [NZ_ACTIVE_INVESTOR_PLUS]
+    property_types: [house, apartment, new_build, residential_land]
+    verdict: NOT_ELIGIBLE
+    effective_from: 2018-10-22
+    effective_to: 2026-03-06
+    sources: *nz-oneroof
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: nz-investor-visa-exemption
+    title: Investor visa exemption — one home worth NZ$5 million or more
+    summary: >-
+      From 6 March 2026, Active Investor Plus visa holders (and former Investor 1/2 visa holders)
+      can buy or build one residential property worth at least NZ$5 million.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_none: [AU, SG]
+      special_any: [NZ_ACTIVE_INVESTOR_PLUS]
+    property_types: [house, apartment, new_build, residential_land]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: minimum_price
+        text: Property value at least NZ$5 million.
+      - kind: quota
+        text: One residential property per investor visa holder under this exemption.
+      - kind: approval
+        text: Overseas Investment Office consent before signing a sale agreement or bidding at auction.
+      - kind: location
+        text: Land next to the foreshore or seabed and island land remain excluded.
+    effective_from: 2026-03-06
+    sources:
+      - title: Bell Gully — door opens for investor visa holders buying residential land
+        url: https://www.bellgully.com/insights/overseas-investment-act-update-door-opens-for-investor-visa-holders-buying-residential-land/
+      - title: Duncan Cotterill — Investor Plus, the $5 million residential pathway
+        url: https://duncancotterill.com/insights/investor-plus-the-5-million-residential-pathway/
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: nz-new-apartments-exemption
+    title: New apartments in large developments
+    summary: >-
+      Overseas persons may buy new apartments in large developments whose developer holds an
+      exemption certificate from the Overseas Investment Office.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+      citizenship_none: [AU, SG]
+      special_none: [NZ_ACTIVE_INVESTOR_PLUS]
+    property_types: [new_build]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: other
+        text: Only units in developments covered by a developer's exemption certificate; you cannot live in the unit.
+    sources: []
+    source_type: general_knowledge
+
+  - id: nz-sensitive-land
+    title: Farmland and other sensitive land need OIO consent
+    summary: >-
+      Overseas persons need Overseas Investment Office consent to buy sensitive land, including
+      farmland, which must usually be advertised to New Zealanders first.
+    applies_to:
+      status_in: [temporary_resident, non_resident]
+    property_types: [agricultural_land, commercial]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: approval
+        text: Overseas Investment Office consent (benefit-to-New-Zealand or investor test).
+    sources: []
+    source_type: general_knowledge
+    notes: Commercial land only needs consent if it counts as sensitive land or the business assets exceed the threshold.

@@ -1,0 +1,52 @@
+country: VN
+name: Vietnam
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: vn-housing-projects
+    title: Homes in commercial housing projects
+    summary: >-
+      Foreigners who are allowed to enter Vietnam can own apartments and houses in commercial
+      housing projects, within quotas and for a limited term.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [house, apartment, new_build]
+    verdict: CONDITIONAL
+    conditions:
+      - kind: location
+        text: Only in commercial housing projects outside defence and security areas.
+      - kind: quota
+        text: At most 30% of units in an apartment building and 250 houses per ward.
+      - kind: term_limit
+        text: Ownership term of 50 years, renewable.
+    sources:
+      - title: Bamboo Routes — Vietnam pink book for foreigners
+        url: https://bambooroutes.com/blogs/news/vietnam-pink-book-foreigners-how-get
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: vn-land
+    title: Land — no land-use rights for foreign individuals
+    summary: >-
+      Land in Vietnam is owned by the state. Foreign individuals cannot hold land-use rights for
+      vacant or agricultural land.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [residential_land, agricultural_land]
+    verdict: NOT_ELIGIBLE
+    sources: []
+    source_type: general_knowledge
+
+  - id: vn-commercial
+    title: Commercial land through a foreign-invested company
+    summary: Foreign investors can lease land from the state through a foreign-invested enterprise.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [commercial]
+    verdict: ALTERNATIVE_STRUCTURE
+    conditions:
+      - kind: structure
+        text: Land lease from the state through a licensed foreign-invested enterprise.
+    sources: []
+    source_type: general_knowledge

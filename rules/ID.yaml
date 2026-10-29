@@ -1,0 +1,50 @@
+country: ID
+name: Indonesia
+zones:
+  - id: all
+    label: Whole country
+rules:
+  - id: id-hak-pakai
+    title: Right of use (Hak Pakai) instead of freehold
+    summary: >-
+      Foreigners cannot hold freehold title (Hak Milik). They can hold homes and apartments under
+      a long-term right of use, subject to minimum prices.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [house, apartment, new_build, residential_land]
+    verdict: ALTERNATIVE_STRUCTURE
+    conditions:
+      - kind: structure
+        text: Right of use (Hak Pakai), extendable to up to 80 years in total.
+      - kind: minimum_price
+        text: Regional minimum prices apply (reported around US$120,000–180,000 for apartments in Jakarta and Bali).
+      - kind: other
+        text: You must hold a valid visa or residence permit.
+    sources:
+      - title: JLL — rethinking Thailand's condominium ownership policy (Indonesia comparison)
+        url: https://www.jll.com/en-jp/insights/rethinking-thailands-condominium-ownership-policy
+    source_type: secondary
+    last_verified: 2026-10-29
+
+  - id: id-agricultural
+    title: Agricultural land not available to foreigners
+    summary: Foreign individuals cannot acquire agricultural land.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [agricultural_land]
+    verdict: NOT_ELIGIBLE
+    sources: []
+    source_type: general_knowledge
+
+  - id: id-commercial
+    title: Commercial property through a foreign-owned company (PT PMA)
+    summary: Foreign investors hold commercial property through a foreign-owned Indonesian company with building or use rights.
+    applies_to:
+      status_in: [permanent_resident, temporary_resident, non_resident]
+    property_types: [commercial]
+    verdict: ALTERNATIVE_STRUCTURE
+    conditions:
+      - kind: structure
+        text: Foreign-owned Indonesian company (PT PMA) holding a right to build (HGB) or right of use.
+    sources: []
+    source_type: general_knowledge

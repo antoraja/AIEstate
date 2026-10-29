@@ -1,0 +1,32 @@
+# Shared definitions referenced by the country files.
+# Groups are written as @NAME inside citizenship_any / citizenship_none.
+
+groups:
+  EU: [AT, BE, BG, HR, CY, CZ, DK, EE, FI, FR, DE, GR, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, ES, SE]
+  EFTA: [IS, LI, NO, CH]
+  # Florida SB 264 "foreign countries of concern" other than China, which the law treats separately.
+  US_FL_CONCERN_EXCEPT_CN: [CU, IR, KP, RU, SY, VE]
+  # Texas SB 17 designated countries.
+  US_TX_DESIGNATED: [CN, IR, KP, RU]
+  # Commonly named "foreign adversary" countries in US state laws, used where a state is not yet modelled.
+  US_FOREIGN_ADVERSARY: [CN, CU, IR, KP, RU, SY, VE]
+  # Nationalities that need prior RBI approval to buy property in India even when resident there.
+  IN_RBI_APPROVAL_NATIONALITIES: [PK, BD, LK, AF, CN, IR, NP, BT, MO, HK]
+
+special_statuses:
+  - id: IN_OCI
+    label: Overseas Citizen of India (OCI) cardholder
+    country: IN
+    description: Foreign citizen of Indian origin registered as an OCI.
+  - id: NZ_ACTIVE_INVESTOR_PLUS
+    label: New Zealand Active Investor Plus visa (or former Investor 1 / Investor 2)
+    country: NZ
+    description: Holder of New Zealand's investor ("golden") visa.
+  - id: CA_REGISTERED_INDIAN
+    label: Registered under Canada's Indian Act
+    country: CA
+    description: People registered under the Indian Act are not "non-Canadians" for the residential ban.
+  - id: PH_FORMER_NATURAL_BORN
+    label: Former natural-born Filipino citizen
+    country: PH
+    description: Someone born a Filipino citizen who later took another citizenship.

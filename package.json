@@ -1,0 +1,17 @@
+{
+  "name": "aiestate",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "rules:build": "npm run build -w @aiestate/rules-engine",
+    "rules:stale": "npm run stale -w @aiestate/rules-engine",
+    "test": "npm test -w @aiestate/rules-engine",
+    "typecheck": "npm run typecheck --workspaces",
+    "dev": "npm run rules:build && npm run dev -w @aiestate/web",
+    "build": "npm run rules:build && npm run build -w @aiestate/web"
+  }
+}
